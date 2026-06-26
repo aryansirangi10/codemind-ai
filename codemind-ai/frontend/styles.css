@@ -1,0 +1,171 @@
+/* CodeMind AI - Premium Luxury Tech Styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-primary: #0A0A0A;
+    --bg-secondary: #111111;
+    --bg-card: #181818;
+    --accent: #FF0000;
+    --accent-glow: rgba(255, 0, 0, 0.15);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-primary: #FFFFFF;
+    --text-secondary: #A5A5A5;
+    --text-muted: #707070;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Custom Text Selection */
+::selection {
+    background: rgba(255, 0, 0, 0.25);
+    color: #FFFFFF;
+}
+
+/* Custom Dark Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+    background: #252525;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+    background: rgba(24, 24, 24, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+    border-color: rgba(255, 0, 0, 0.3);
+    box-shadow: 0 12px 40px 0 rgba(255, 0, 0, 0.04);
+    transform: translateY(-2px);
+}
+
+/* Interactive Grid Background Overlay */
+.bg-grid {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%);
+}
+
+/* Animated Aurora Background Blob */
+.aurora-blob {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.12;
+    z-index: 0;
+    pointer-events: none;
+    animation: rotateAurora 25s infinite linear;
+}
+
+.aurora-1 {
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    top: -10%;
+    right: -10%;
+}
+
+.aurora-2 {
+    background: radial-gradient(circle, #ff3d3d 0%, transparent 70%);
+    bottom: -15%;
+    left: -10%;
+    animation-delay: -5s;
+}
+
+@keyframes rotateAurora {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(50px, -50px) scale(1.1); }
+    66% { transform: translate(-30px, 20px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Red Highlights and Glow Effects */
+.accent-glow {
+    box-shadow: 0 0 20px 2px var(--accent-glow);
+}
+
+.text-gradient-red {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FF6A6A 50%, #FF0000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.accent-border-glow {
+    position: relative;
+}
+.accent-border-glow::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), var(--accent), rgba(255,255,255,0.1));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Interactive Navigation Underline Hover Animation */
+.nav-link {
+    position: relative;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+.nav-link:hover {
+    color: var(--text-primary);
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--accent);
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Simulated Typing cursor animation */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 15px;
+    background-color: var(--accent);
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+    vertical-align: middle;
+}
+
+@keyframes blink {
+    from, to { background-color: transparent }
+    50% { background-color: var(--accent) }
+}
