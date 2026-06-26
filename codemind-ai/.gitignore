@@ -109,3 +109,7 @@ env/
 # Local Database
 backend/codemind.db
 backend/codemind.db-journal
+
+# Environment Variables
+.env
+backend/.env
