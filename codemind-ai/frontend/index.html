@@ -37,6 +37,273 @@
             padding: 0;
         }
 
+        /* --- TAILWIND CUSTOM CSS UTILITY FALLBACKS --- */
+        .fixed { position: fixed; }
+        .absolute { position: absolute; }
+        .relative { position: relative; }
+        .inset-0 { top: 0; left: 0; right: 0; bottom: 0; }
+        .bottom-0 { bottom: 0; }
+        .right-0 { right: 0; }
+        .right-4 { right: 16px; }
+        .top-4 { top: 16px; }
+        .top-16 { top: 64px; }
+        .z-0 { z-index: 0; }
+        .z-10 { z-index: 10; }
+        .z-20 { z-index: 20; }
+        .z-40 { z-index: 40; }
+        .z-50 { z-index: 50; }
+        .pointer-events-none { pointer-events: none; }
+        
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .flex-1 { flex: 1 1 0%; }
+        .flex-grow { flex-grow: 1; }
+        .flex-shrink-0 { flex-shrink: 0; }
+        .grid { display: grid; }
+        .items-center { align-items: center; }
+        .items-end { align-items: flex-end; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .hidden { display: none !important; }
+        .block { display: block; }
+        .inline { display: inline; }
+        .select-none { user-select: none; -webkit-user-select: none; }
+        
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .w-px { width: 1px; }
+        .min-h-screen { min-height: 100vh; }
+        .max-h-48 { max-height: 192px; }
+        .max-h-\[80vh\] { max-height: 80vh; }
+
+        .max-w-sm { max-width: 384px; }
+        .max-w-md { max-width: 448px; }
+        .max-w-lg { max-width: 512px; }
+        .max-w-2xl { max-width: 672px; }
+        .max-w-4xl { max-width: 896px; }
+        .max-w-7xl { max-width: 1280px; }
+
+        .h-2\.5 { height: 10px; }
+        .h-3 { height: 12px; }
+        .h-3\.5 { height: 14px; }
+        .h-4 { height: 16px; }
+        .h-5 { height: 20px; }
+        .h-6 { height: 24px; }
+        .h-7 { height: 28px; }
+        .h-8 { height: 32px; }
+        .h-10 { height: 40px; }
+        .h-11 { height: 44px; }
+        .h-12 { height: 48px; }
+        .h-14 { height: 56px; }
+        .h-16 { height: 64px; }
+
+        .w-2\.5 { width: 10px; }
+        .w-3 { width: 12px; }
+        .w-3\.5 { width: 14px; }
+        .w-4 { width: 16px; }
+        .w-5 { width: 20px; }
+        .w-6 { width: 24px; }
+        .w-7 { width: 28px; }
+        .w-8 { width: 32px; }
+        .w-10 { width: 40px; }
+        .w-12 { width: 48px; }
+        .w-14 { width: 56px; }
+        .w-64 { width: 256px; }
+        .w-80 { width: 320px; }
+
+        .p-1\.5 { padding: 6px; }
+        .p-2 { padding: 8px; }
+        .p-3 { padding: 12px; }
+        .p-4 { padding: 16px; }
+        .p-5 { padding: 20px; }
+        .p-6 { padding: 24px; }
+        .p-8 { padding: 32px; }
+
+        .px-1\.5 { padding-left: 6px; padding-right: 6px; }
+        .px-2 { padding-left: 8px; padding-right: 8px; }
+        .px-3 { padding-left: 12px; padding-right: 12px; }
+        .px-4 { padding-left: 16px; padding-right: 16px; }
+        .px-6 { padding-left: 24px; padding-right: 24px; }
+
+        .py-0\.2 { padding-top: 1px; padding-bottom: 1px; }
+        .py-0\.5 { padding-top: 2px; padding-bottom: 2px; }
+        .py-1 { padding-top: 4px; padding-bottom: 4px; }
+        .py-2 { padding-top: 8px; padding-bottom: 8px; }
+        .py-3 { padding-top: 12px; padding-bottom: 12px; }
+        .py-8 { padding-top: 32px; padding-bottom: 32px; }
+
+        .pb-3 { padding-bottom: 12px; }
+        .pb-4 { padding-bottom: 16px; }
+        .pt-2 { padding-top: 8px; }
+        .pt-4 { padding-top: 16px; }
+
+        .mb-2 { margin-bottom: 8px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mt-1 { margin-top: 4px; }
+        .mt-2 { margin-top: 8px; }
+        .mt-auto { margin-top: auto; }
+        .m-0 { margin: 0; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+
+        .gap-1 { gap: 4px; }
+        .gap-1\.5 { gap: 6px; }
+        .gap-2 { gap: 8px; }
+        .gap-3 { gap: 12px; }
+        .gap-4 { gap: 16px; }
+        .gap-6 { gap: 24px; }
+        .gap-8 { gap: 32px; }
+
+        .border { border: 1px solid var(--border); }
+        .border-2 { border: 2px solid var(--border); }
+        .border-none { border: none !important; }
+        .border-t { border-top: 1px solid var(--border); }
+        .border-b { border-bottom: 1px solid var(--border); }
+        .border-r { border-right: 1px solid var(--border); }
+        .border-l { border-left: 1px solid var(--border); }
+        .border-l-2 { border-left: 2px solid var(--border); }
+        .border-b-2 { border-bottom: 2px solid var(--border); }
+
+        .border-transparent { border-color: transparent !important; }
+        .border-accent { border-color: var(--accent) !important; }
+        
+        .border-white\/10 { border-color: rgba(255, 255, 255, 0.1) !important; }
+        .border-white\/5 { border-color: rgba(255, 255, 255, 0.05) !important; }
+        .border-\[\#6C47FF\]\/10 { border-color: rgba(108, 71, 255, 0.1) !important; }
+        .border-\[\#6C47FF\]\/20 { border-color: rgba(108, 71, 255, 0.2) !important; }
+        .border-\[\#6C47FF\]\/30 { border-color: rgba(108, 71, 255, 0.3) !important; }
+        .border-\[\#6C47FF\]\/35 { border-color: rgba(108, 71, 255, 0.35) !important; }
+        .border-red-500\/20 { border-color: rgba(255, 77, 109, 0.2) !important; }
+
+        .rounded { border-radius: 4px; }
+        .rounded-lg { border-radius: 8px; }
+        .rounded-full { border-radius: 9999px; }
+
+        .bg-transparent { background-color: transparent; }
+        .bg-\[\#0D0B1F\] { background-color: #0D0B1F; }
+        .bg-\[\#111111\] { background-color: #111111; }
+        .bg-\[\#131033\] { background-color: #131033; }
+        .bg-\[\#1A1640\] { background-color: #1A1640; }
+        .bg-\[\#1A1A40\] { background-color: #1A1A40; }
+        .bg-\[\#6C47FF\] { background-color: #6C47FF; }
+        .bg-\[\#FF4D6D\] { background-color: #FF4D6D; }
+
+        .bg-panel { background-color: var(--panel); }
+        .bg-accent { background-color: var(--accent); }
+        .bg-accent\/10 { background-color: rgba(108, 71, 255, 0.1); }
+        .bg-white\/10 { background-color: rgba(255, 255, 255, 0.1); }
+        .bg-black\/40 { background-color: rgba(0, 0, 0, 0.4); }
+        .bg-black\/50 { background-color: rgba(0, 0, 0, 0.5); }
+        .bg-black\/80 { background-color: rgba(0, 0, 0, 0.8); }
+
+        .bg-\[\#1A1640\]\/20 { background-color: rgba(26, 22, 64, 0.2); }
+        .bg-\[\#1A1640\]\/40 { background-color: rgba(26, 22, 64, 0.4); }
+        .bg-\[\#1A1640\]\/50 { background-color: rgba(26, 22, 64, 0.5); }
+        .bg-\[\#1A1640\]\/60 { background-color: rgba(26, 22, 64, 0.6); }
+        .bg-\[\#6C47FF\]\/20 { background-color: rgba(108, 71, 255, 0.2); }
+
+        .bg-gradient-to-tr {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+        }
+        .bg-green-700 { background-color: #15803d; }
+
+        .text-xs { font-size: 12px; }
+        .text-sm { font-size: 14px; }
+        .text-base { font-size: 16px; }
+        .text-lg { font-size: 18px; }
+        .text-xl { font-size: 20px; }
+        .text-2xl { font-size: 24px; }
+        .text-3xl { font-size: 30px; }
+        .text-\[9px\] { font-size: 9px; }
+        .text-\[10px\] { font-size: 10px; }
+        .text-\[11px\] { font-size: 11px; }
+
+        .text-white { color: #ffffff; }
+        .text-muted { color: var(--muted); }
+        .text-text { color: var(--text); }
+        .text-\[\#00E5CC\] { color: #00E5CC; }
+        .text-\[\#E0D9FF\] { color: #E0D9FF; }
+        .text-\[\#FF4D6D\] { color: #FF4D6D; }
+        .text-red-400 { color: #f87171; }
+        .text-green-400 { color: #4ade80; }
+        .text-textMuted { color: var(--muted); }
+        .text-transparent { color: transparent; }
+
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .uppercase { text-transform: uppercase; }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        .tracking-wider { letter-spacing: 0.05em; }
+        .tracking-widest { letter-spacing: 0.1em; }
+        .leading-normal { line-height: 1.5; }
+        .leading-relaxed { line-height: 1.625; }
+
+        .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .caret-white { caret-color: white; }
+
+        .transition-colors {
+            transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+        }
+        .transition-all {
+            transition: all 0.15s ease;
+        }
+        .transition-opacity {
+            transition: opacity 0.2s ease;
+        }
+        .duration-200 {
+            transition-duration: 200ms;
+        }
+
+        .overflow-hidden { overflow: hidden; }
+        .overflow-x-auto { overflow-x: auto; }
+        .overflow-y-auto { overflow-y: auto; }
+        .overflow-auto { overflow: auto; }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        .backdrop-blur-sm {
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        .resize-none { resize: none; }
+
+        .hover\:bg-\[\#5735db\]:hover { background-color: #5735db; }
+        .hover\:bg-green-600:hover { background-color: #16a34a; }
+        .hover\:bg-white\/\[0\.01\]:hover { background-color: rgba(255, 255, 255, 0.01); }
+        .hover\:bg-white\/\[0\.02\]:hover { background-color: rgba(255, 255, 255, 0.02); }
+        .hover\:border-accent:hover { border-color: var(--accent) !important; }
+        .hover\:border-\[\#6C47FF\]:hover { border-color: #6C47FF !important; }
+        .hover\:text-\[\#00E5CC\]:hover { color: #00E5CC; }
+        .hover\:text-red-400:hover { color: #f87171; }
+        .hover\:text-white:hover { color: #ffffff; }
+
+        .\!min-h-\[30px\] { min-height: 30px !important; }
+
+        .divide-y > * + * {
+            border-top: 1px solid var(--border);
+        }
+        .divide-\[\#6C47FF\]\/10 > * + * {
+            border-top: 1px solid rgba(108, 71, 255, 0.1);
+        }
+
+        @media (min-width: 481px) {
+            .md\:flex { display: flex !important; }
+            .md\:inline { display: inline !important; }
+            .md\:table { display: table !important; }
+            .md\:hidden { display: none !important; }
+        }
+
+        @media (min-width: 769px) {
+            .lg\:col-span-6 { grid-column: span 6 !important; }
+        }
+
         body {
             background-color: var(--bg);
             color: var(--text);
@@ -45,7 +312,7 @@
             position: relative;
             min-height: 100vh;
             display: flex;
-            flex-col: column;
+            flex-direction: column;
             padding-bottom: env(safe-area-inset-bottom);
         }
 
@@ -1025,12 +1292,23 @@
     <script>
         // Configure AMD loader for Monaco Editor
         let monacoReady = false;
-        require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@0.45.0/min/vs' } });
-        require(['vs/editor/editor.main'], function() {
-            monacoReady = true;
-            const loaderEl = document.getElementById("ws-editor-loader");
-            if (loaderEl) loaderEl.style.display = "none";
-        });
+        let monacoFailed = false;
+        if (typeof require !== 'undefined') {
+            try {
+                require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@0.45.0/min/vs' } });
+                require(['vs/editor/editor.main'], function() {
+                    monacoReady = true;
+                    const loaderEl = document.getElementById("ws-editor-loader");
+                    if (loaderEl) loaderEl.style.display = "none";
+                });
+            } catch (err) {
+                console.warn("Failed to load Monaco config:", err);
+                monacoFailed = true;
+            }
+        } else {
+            console.warn("Monaco loader is not defined (offline or CDN blocked).");
+            monacoFailed = true;
+        }
 
         // --- 1. LOCAL API CLIENT (WITH OFFLINE MOCK FALLBACK) ---
         const API_BASE = "http://localhost:8000/api/v1";
@@ -1749,12 +2027,20 @@
             }
 
             // Desktop layout (Monaco)
-            if (window.innerWidth >= 481) {
+            if (window.innerWidth >= 481 && !monacoFailed) {
                 if (!monacoReady) {
-                    setTimeout(() => loadEditorContent(fileName), 200);
-                    return;
+                    if (!window.monacoWaitCount) window.monacoWaitCount = 0;
+                    if (window.monacoWaitCount < 25) { // 25 * 200ms = 5 seconds
+                        window.monacoWaitCount++;
+                        setTimeout(() => loadEditorContent(fileName), 200);
+                        return;
+                    }
+                    console.warn("Monaco loading timed out. Falling back to text editor.");
+                    monacoFailed = true;
                 }
+            }
 
+            if (window.innerWidth >= 481 && !monacoFailed) {
                 const container = document.getElementById("monaco-editor-container");
                 container.innerHTML = "";
 
@@ -1787,10 +2073,18 @@
                 });
                 monacoEditor.deltaDecorations([], decorations);
             } else {
-                // Mobile layout (Prism + Textarea)
+                // Mobile layout (Prism + Textarea) or desktop fallback
                 const textarea = document.getElementById("mobile-code-textarea");
                 const block = document.getElementById("mobile-code-block");
                 
+                // Show mobile container on desktop if we are in fallback mode
+                if (window.innerWidth >= 481) {
+                    const mContainer = document.getElementById("mobile-editor-container");
+                    if (mContainer) mContainer.classList.remove("hidden");
+                    const mLoader = document.getElementById("ws-editor-loader");
+                    if (mLoader) mLoader.style.display = "none";
+                }
+
                 textarea.value = code;
                 block.textContent = code;
                 Prism.highlightElement(block);
