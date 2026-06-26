@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>CodeMind AI — Multi-Agent Code Auditor</title>
-    <!-- Google Fonts -->
+    <!-- Google Fonts & Fontshare -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500;600;700&display=swap" rel="stylesheet">
     <!-- Prism.js (Mobile Code Highlighter) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -18,16 +19,16 @@
     <style>
         /* --- CUSTOM CSS VARIABLE DESIGN SYSTEM --- */
         :root {
-            --bg: #0B0E17;
-            --panel: #151C33;
-            --border: rgba(0, 229, 204, 0.15);
-            --accent: #00B4D8;
-            --accent2: #00F5D4;
-            --accent-glow: rgba(0, 245, 212, 0.25);
-            --text: #E2F3F5;
-            --muted: rgba(226, 243, 245, 0.6);
-            --danger: #FF4D6D;
-            --success: #00F5D4;
+            --bg: #080808;
+            --panel: #121212;
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #FF3B30;
+            --accent2: #FF6B6B;
+            --accent-glow: rgba(255, 59, 48, 0.15);
+            --text: #FFFFFF;
+            --muted: #A8A8A8;
+            --danger: #FF3B30;
+            --success: #4ade80;
             --warning: #FFB800;
         }
 
@@ -168,38 +169,38 @@
         
         .border-white\/10 { border-color: rgba(255, 255, 255, 0.1) !important; }
         .border-white\/5 { border-color: rgba(255, 255, 255, 0.05) !important; }
-        .border-\[\#6C47FF\]\/10 { border-color: rgba(0, 180, 216, 0.1) !important; }
-        .border-\[\#6C47FF\]\/20 { border-color: rgba(0, 180, 216, 0.2) !important; }
-        .border-\[\#6C47FF\]\/30 { border-color: rgba(0, 180, 216, 0.3) !important; }
-        .border-\[\#6C47FF\]\/35 { border-color: rgba(0, 180, 216, 0.35) !important; }
-        .border-red-500\/20 { border-color: rgba(255, 77, 109, 0.2) !important; }
+        .border-\[\#6C47FF\]\/10 { border-color: rgba(255, 255, 255, 0.06) !important; }
+        .border-\[\#6C47FF\]\/20 { border-color: var(--border) !important; }
+        .border-\[\#6C47FF\]\/30 { border-color: var(--border) !important; }
+        .border-\[\#6C47FF\]\/35 { border-color: var(--border) !important; }
+        .border-red-500\/20 { border-color: rgba(255, 59, 48, 0.2) !important; }
 
         .rounded { border-radius: 4px; }
         .rounded-lg { border-radius: 8px; }
         .rounded-full { border-radius: 9999px; }
 
         .bg-transparent { background-color: transparent; }
-        .bg-\[\#0D0B1F\] { background-color: #0B0E17; }
+        .bg-\[\#0D0B1F\] { background-color: var(--bg); }
         .bg-\[\#111111\] { background-color: #111111; }
-        .bg-\[\#131033\] { background-color: #131033; }
-        .bg-\[\#1A1640\] { background-color: #151C33; }
-        .bg-\[\#1A1A40\] { background-color: #182245; }
-        .bg-\[\#6C47FF\] { background-color: #00B4D8; }
-        .bg-\[\#FF4D6D\] { background-color: #FF4D6D; }
+        .bg-\[\#131033\] { background-color: #0c0b18; }
+        .bg-\[\#1A1640\] { background-color: var(--panel); }
+        .bg-\[\#1A1A40\] { background-color: var(--panel); }
+        .bg-\[\#6C47FF\] { background-color: var(--accent); }
+        .bg-\[\#FF4D6D\] { background-color: var(--accent); }
 
         .bg-panel { background-color: var(--panel); }
         .bg-accent { background-color: var(--accent); }
-        .bg-accent\/10 { background-color: rgba(108, 71, 255, 0.1); }
+        .bg-accent\/10 { background-color: var(--accent-glow); }
         .bg-white\/10 { background-color: rgba(255, 255, 255, 0.1); }
         .bg-black\/40 { background-color: rgba(0, 0, 0, 0.4); }
         .bg-black\/50 { background-color: rgba(0, 0, 0, 0.5); }
         .bg-black\/80 { background-color: rgba(0, 0, 0, 0.8); }
 
-        .bg-\[\#1A1640\]\/20 { background-color: rgba(21, 28, 51, 0.2); }
-        .bg-\[\#1A1640\]\/40 { background-color: rgba(21, 28, 51, 0.4); }
-        .bg-\[\#1A1640\]\/50 { background-color: rgba(21, 28, 51, 0.5); }
-        .bg-\[\#1A1640\]\/60 { background-color: rgba(21, 28, 51, 0.6); }
-        .bg-\[\#6C47FF\]\/20 { background-color: rgba(0, 180, 216, 0.2); }
+        .bg-\[\#1A1640\]\/20 { background-color: rgba(255, 255, 255, 0.02); }
+        .bg-\[\#1A1640\]\/40 { background-color: rgba(255, 255, 255, 0.04); }
+        .bg-\[\#1A1640\]\/50 { background-color: rgba(255, 255, 255, 0.05); }
+        .bg-\[\#1A1640\]\/60 { background-color: rgba(255, 255, 255, 0.06); }
+        .bg-\[\#6C47FF\]\/20 { background-color: rgba(255, 59, 48, 0.1); }
 
         .bg-gradient-to-tr {
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
@@ -220,7 +221,7 @@
         .text-white { color: #ffffff; }
         .text-muted { color: var(--muted); }
         .text-text { color: var(--text); }
-        .text-\[\#00E5CC\] { color: #00E5CC; }
+        .text-\[\#00E5CC\] { color: var(--accent2); }
         .text-\[\#E0D9FF\] { color: #E0D9FF; }
         .text-\[\#FF4D6D\] { color: #FF4D6D; }
         .text-red-400 { color: #f87171; }
@@ -280,7 +281,7 @@
         .hover\:bg-white\/\[0\.02\]:hover { background-color: rgba(255, 255, 255, 0.02); }
         .hover\:border-accent:hover { border-color: var(--accent) !important; }
         .hover\:border-\[\#6C47FF\]:hover { border-color: #00B4D8 !important; }
-        .hover\:text-\[\#00E5CC\]:hover { color: #00E5CC; }
+        .hover\:text-\[\#00E5CC\]:hover { color: var(--accent2); }
         .hover\:text-red-400:hover { color: #f87171; }
         .hover\:text-white:hover { color: #ffffff; }
 
@@ -438,20 +439,726 @@
         }
 
         /* --- CORE VISUAL COMPONENT STYLES --- */
+        /* --- PREMIUM HEADER & NAVBAR --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
         header {
             position: sticky;
             top: 0;
-            z-index: 50;
-            background: rgba(13, 11, 31, 0.4);
-            border-bottom: 1px solid transparent;
-            transition: backdrop-filter 300ms ease, border-color 300ms ease;
+            z-index: 100;
+            height: 80px;
+            background: rgba(8, 8, 12, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: backdrop-filter 300ms ease, background-color 300ms ease, border-color 300ms ease;
         }
 
         header.scrolled {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-color: var(--border);
-            background: rgba(13, 11, 31, 0.7);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            background: rgba(4, 4, 6, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-container {
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* --- LOGO --- */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-family: 'Clash Display', 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 21px;
+            color: #FFFFFF;
+            letter-spacing: -0.01em;
+            text-transform: none !important;
+        }
+
+        .logo-ai-gradient {
+            background: linear-gradient(135deg, #FF3B30 0%, #FF6B6B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Clash Display', 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        /* --- NAVIGATION LINKS --- */
+        .nav-links-center {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-item-link {
+            font-size: 15px;
+            font-weight: 500;
+            color: #A8A8A8;
+            text-decoration: none;
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px 0;
+            transition: color 300ms ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-item-link:hover {
+            color: #FFFFFF;
+        }
+
+        .nav-item-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, #FF3B30, #FF6B6B);
+            transform-origin: bottom right;
+            transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-item-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* --- SEARCH BAR --- */
+        .search-container-glass {
+            position: relative;
+            width: 260px;
+            transition: width 300ms ease;
+        }
+
+        .search-input-glass {
+            width: 100%;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 9999px;
+            padding-left: 36px;
+            padding-right: 16px;
+            font-size: 13px;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            transition: all 300ms ease;
+            cursor: pointer;
+        }
+
+        .search-input-glass::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .search-input-glass:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 59, 48, 0.4) !important;
+            box-shadow: 0 0 16px rgba(255, 59, 48, 0.15);
+        }
+
+        .search-icon-inside {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            width: 14px;
+            height: 14px;
+            transition: color 300ms ease;
+        }
+
+        /* --- CONTROLS RIGHT --- */
+        .controls-right-side {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Premium Icon Button */
+        .btn-premium-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #A8A8A8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-premium-icon:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+            color: #FFFFFF;
+            border-color: rgba(255, 59, 48, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 59, 48, 0.15);
+        }
+
+        .btn-premium-icon svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 300ms ease;
+        }
+
+        .btn-premium-icon:hover svg {
+            transform: rotate(15deg);
+        }
+
+        /* Notification Badge Dot */
+        .btn-premium-icon .badge-dot {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #FF3B30;
+            border: 2px solid #080808;
+        }
+
+        /* GitHub Button Glass */
+        .github-btn-glass {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #FFFFFF;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .github-btn-glass:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 59, 48, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 59, 48, 0.2);
+        }
+
+        .github-btn-glass svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 300ms ease;
+        }
+
+        .github-btn-glass:hover svg {
+            transform: rotate(15deg);
+        }
+
+        /* Avatar styling with gradient border */
+        .avatar-gradient-border {
+            position: relative;
+            padding: 2px;
+            background: linear-gradient(135deg, #FF3B30 0%, #FF6B6B 100%);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-gradient-border:hover {
+            transform: scale(1.05) translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 59, 48, 0.25);
+        }
+
+        .avatar-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #121212;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* --- PREMIUM DROPDOWN PANELS --- */
+        .dropdown-panel {
+            position: absolute;
+            top: 70px;
+            right: 0;
+            width: 260px;
+            background: rgba(8, 8, 12, 0.95);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 16px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 150;
+            animation: fadeInScale 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform-origin: top right;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .dropdown-panel.open {
+            display: flex;
+        }
+
+        .dropdown-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+            margin-bottom: 4px;
+        }
+
+        .dropdown-user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFFFFF;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .dropdown-user-email {
+            font-size: 11px;
+            color: #A8A8A8;
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .developer-badge {
+            align-self: flex-start;
+            font-size: 9px;
+            font-weight: 700;
+            background: rgba(255, 59, 48, 0.15);
+            border: 1px solid rgba(255, 59, 48, 0.3);
+            color: #FF3B30;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: #A8A8A8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 200ms ease;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .dropdown-item:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(2px);
+        }
+
+        .dropdown-item.danger-item:hover {
+            color: #FF3B30;
+            background: rgba(255, 59, 48, 0.08);
+        }
+
+        /* --- TOAST NOTIFICATIONS --- */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .toast-card {
+            pointer-events: auto;
+            background: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 3px solid #FF3B30;
+            border-radius: 8px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            animation: slideInRight 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            max-width: 380px;
+        }
+
+        .toast-card.toast-closing {
+            animation: slideOutRight 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+        }
+
+        /* --- CMD+K COMMAND PALETTE --- */
+        .cmd-palette-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 900;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 15vh;
+            animation: fadeIn 200ms ease forwards;
+        }
+
+        .cmd-palette-overlay.open {
+            display: flex;
+        }
+
+        .cmd-palette-box {
+            width: 100%;
+            max-width: 600px;
+            background: #121212;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: scaleUp 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .cmd-palette-search-wrapper {
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .cmd-palette-input {
+            width: 100%;
+            height: 56px;
+            background: transparent;
+            border: none;
+            padding-left: 48px;
+            padding-right: 16px;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+        }
+
+        .cmd-palette-search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.4);
+            width: 18px;
+            height: 18px;
+        }
+
+        .cmd-palette-results {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .cmd-palette-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: #A8A8A8;
+            cursor: pointer;
+            transition: all 150ms ease;
+        }
+
+        .cmd-palette-item:hover, .cmd-palette-item.selected {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .cmd-palette-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .cmd-palette-item-left svg {
+            width: 16px;
+            height: 16px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .cmd-palette-item:hover .cmd-palette-item-left svg,
+        .cmd-palette-item.selected .cmd-palette-item-left svg {
+            color: #FF3B30;
+        }
+
+        .cmd-palette-shortcut {
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .cmd-palette-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #A8A8A8;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .cmd-palette-footer-keys {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* --- RESPONSIVE HAMBURGER & FULL SCREEN DRAWER --- */
+        .hamburger-btn-premium {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 300ms ease;
+        }
+
+        .hamburger-btn-premium span {
+            width: 20px;
+            height: 2px;
+            background: #FFFFFF;
+            border-radius: 2px;
+            transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hamburger-btn-premium.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger-btn-premium.open span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .hamburger-btn-premium.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-drawer-fullscreen {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 8, 12, 0.98);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            padding: 32px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-20px);
+            transition: opacity 300ms ease, transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mobile-drawer-fullscreen.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .mobile-drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .mobile-drawer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .mobile-drawer-link-item {
+            font-family: 'Clash Display', 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #A8A8A8;
+            text-decoration: none;
+            transition: color 300ms ease, transform 300ms ease;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-drawer-link-item:hover {
+            color: #FFFFFF;
+            transform: scale(1.05);
+        }
+
+        .mobile-drawer-link-item.active {
+            color: #FF3B30;
+        }
+
+        .mobile-drawer-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 24px;
+            margin-top: auto;
+        }
+
+        /* Visibility classes for responsive layouts */
+        .desktop-nav-items {
+            display: flex;
+        }
+        .tablet-mobile-menu-btn {
+            display: none;
+        }
+        .search-icon-btn-mobile {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .desktop-nav-items {
+                display: none !important;
+            }
+            .tablet-mobile-menu-btn {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-container-glass {
+                display: none !important;
+            }
+            .search-icon-btn-mobile {
+                display: flex !important;
+            }
         }
 
         /* Floating action button (FAB) */
@@ -905,52 +1612,215 @@
     <!-- HERO BACKGROUND CANVAS -->
     <canvas id="hero-canvas" class="fixed inset-0 w-full h-full z-0 pointer-events-none"></canvas>
 
-    <!-- MOBILE DRAWER OVERLAY -->
-    <div id="drawer-overlay" class="drawer-overlay" onclick="toggleMobileDrawer(false)"></div>
-    <!-- MOBILE DRAWER SIDEBAR -->
-    <div id="mobile-drawer" class="mobile-drawer">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-6 h-6 bg-[#6C47FF] flex items-center justify-center font-heading text-white text-xs">C</div>
-                <span class="font-heading text-sm uppercase tracking-wider text-white">Menu</span>
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- CMD+K COMMAND PALETTE OVERLAY -->
+    <div id="cmd-palette" class="cmd-palette-overlay" onclick="closeCmdPaletteOnOutsideClick(event)">
+        <div class="cmd-palette-box">
+            <div class="cmd-palette-search-wrapper">
+                <i data-lucide="search" class="cmd-palette-search-icon"></i>
+                <input type="text" id="cmd-palette-input" class="cmd-palette-input" placeholder="Search workspaces, views or settings..." oninput="filterCmdPalette()">
             </div>
-            <button onclick="toggleMobileDrawer(false)" class="text-textMuted hover:text-white">
-                <i data-lucide="x" class="w-5 h-5"></i>
+            <div id="cmd-palette-results" class="cmd-palette-results">
+                <!-- Populated dynamically -->
+            </div>
+            <div class="cmd-palette-footer">
+                <span>Use <kbd class="cmd-palette-shortcut">↑</kbd> <kbd class="cmd-palette-shortcut">↓</kbd> to navigate, <kbd class="cmd-palette-shortcut">Enter</kbd> to select</span>
+                <div class="cmd-palette-footer-keys">
+                    <kbd class="cmd-palette-shortcut">ESC</kbd>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REDESIGNED FULL SCREEN MOBILE DRAWER -->
+    <div id="mobile-drawer-fs" class="mobile-drawer-fullscreen">
+        <div class="mobile-drawer-header">
+            <div class="flex items-center gap-2">
+                <span class="logo-text">CodeMind <span class="logo-ai-gradient">AI</span></span>
+            </div>
+            <button onclick="toggleMobileDrawerFullscreen(false)" class="text-textMuted hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
             </button>
         </div>
-        <nav class="flex flex-col gap-4 text-sm font-heading uppercase tracking-wider font-semibold">
-            <button onclick="switchView('dashboard'); toggleMobileDrawer(false);" class="text-left py-2 hover:text-[#00E5CC] text-white">Dashboard</button>
-            <button onclick="switchView('workspace'); toggleMobileDrawer(false);" class="text-left py-2 hover:text-[#00E5CC] text-textMuted">Workspace</button>
-            <button onclick="switchView('chat'); toggleMobileDrawer(false);" class="text-left py-2 hover:text-[#00E5CC] text-textMuted">Repository Chat</button>
-            <button onclick="openSettingsModal(); toggleMobileDrawer(false);" class="text-left py-2 hover:text-[#00E5CC] text-textMuted">Config Settings</button>
-        </nav>
+        <div class="mobile-drawer-links">
+            <button onclick="handleMobileLink('dashboard')" class="mobile-drawer-link-item">Home</button>
+            <button onclick="handleMobileLink('features')" class="mobile-drawer-link-item">Features</button>
+            <button onclick="handleMobileLink('workspace')" class="mobile-drawer-link-item">AI Review</button>
+            <button onclick="handleMobileLink('chat')" class="mobile-drawer-link-item">Repository Chat</button>
+            <button onclick="window.open('https://github.com/aryansirangi10/codemind-ai', '_blank'); toggleMobileDrawerFullscreen(false);" class="mobile-drawer-link-item">GitHub</button>
+            <button onclick="handleMobileLink('pricing')" class="mobile-drawer-link-item">Pricing</button>
+            <button onclick="handleMobileLink('developers')" class="mobile-drawer-link-item">Developers</button>
+            <button onclick="handleMobileLink('documentation')" class="mobile-drawer-link-item">Documentation</button>
+        </div>
+        <div class="mobile-drawer-footer">
+            <span id="mobile-drawer-user-email" class="text-xs text-muted font-code">dev@codemind.ai</span>
+            <button onclick="handleLogout(); toggleMobileDrawerFullscreen(false);" class="btn btn-secondary w-full text-xs uppercase tracking-wider">Logout</button>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION PANEL DROPDOWN -->
+    <div id="notification-dropdown-panel" class="dropdown-panel" style="width: 320px;">
+        <div class="dropdown-header">
+            <span class="dropdown-user-name">Recent Audit Activities</span>
+        </div>
+        <div class="flex flex-col gap-2 max-h-64 overflow-y-auto" id="notification-list">
+            <!-- Static list of notifications -->
+            <div class="p-2.5 rounded bg-white/[0.02] border border-white/5 flex gap-2">
+                <div class="w-2 h-2 rounded-full bg-[#FF3B30] mt-1.5 flex-shrink-0"></div>
+                <div class="flex flex-col gap-0.5">
+                    <span class="text-xs text-white font-semibold">Critical Issue in auth.py</span>
+                    <span class="text-[10px] text-muted">SQL Injection vulnerability detected by AST Scanner.</span>
+                </div>
+            </div>
+            <div class="p-2.5 rounded bg-white/[0.02] border border-white/5 flex gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-400 mt-1.5 flex-shrink-0"></div>
+                <div class="flex flex-col gap-0.5">
+                    <span class="text-xs text-white font-semibold">Vector Index Sync Successful</span>
+                    <span class="text-[10px] text-muted">Workspace RAG engine indexed 12 python code modules.</span>
+                </div>
+            </div>
+            <div class="p-2.5 rounded bg-white/[0.02] border border-white/5 flex gap-2">
+                <div class="w-2 h-2 rounded-full bg-[#FFB800] mt-1.5 flex-shrink-0"></div>
+                <div class="flex flex-col gap-0.5">
+                    <span class="text-xs text-white font-semibold">Report Generated</span>
+                    <span class="text-[10px] text-muted">Multi-agent review report is ready for download.</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- MAIN INTERFACE COMPONENT -->
     <div class="relative z-10 min-h-screen flex flex-col justify-between">
         
         <!-- HEADER NAVBAR -->
-        <header id="app-navbar" class="h-16 flex items-center justify-between px-6">
-            <div class="flex items-center gap-8">
-                <!-- Hamburger Button (Mobile / Tablet) -->
-                <button onclick="toggleMobileDrawer(true)" class="hamburger-btn text-white hover:text-[#00E5CC] focus:outline-none hidden">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-                <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('dashboard')">
-                    <div class="w-7 h-7 bg-gradient-to-tr from-accent to-[#00E5CC] flex items-center justify-center font-heading text-white text-sm">C</div>
-                    <span class="font-heading text-base uppercase tracking-widest text-white">CodeMind <span class="text-[#00E5CC]">AI</span></span>
+        <header id="app-navbar" class="hidden">
+            <div class="nav-container">
+                <!-- Left: Logo -->
+                <div class="logo-container" onclick="switchView('dashboard')">
+                    <!-- Modern geometric SVG logo mark -->
+                    <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 2L2 9L16 16L30 9L16 2Z" fill="url(#logo-grad-1)"/>
+                        <path d="M2 23L16 30L30 23" stroke="url(#logo-grad-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 16L16 23L30 16" stroke="url(#logo-grad-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="logo-grad-1" x1="2" y1="9" x2="30" y2="9" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF3B30"/>
+                                <stop offset="1" stop-color="#FF6B6B"/>
+                            </linearGradient>
+                            <linearGradient id="logo-grad-2" x1="2" y1="26.5" x2="30" y2="26.5" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF3B30"/>
+                                <stop offset="1" stop-color="#FF6B6B"/>
+                            </linearGradient>
+                            <linearGradient id="logo-grad-3" x1="2" y1="19.5" x2="30" y2="19.5" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF3B30"/>
+                                <stop offset="1" stop-color="#FF6B6B"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="logo-text">CodeMind <span class="logo-ai-gradient">AI</span></span>
                 </div>
-                <nav class="desktop-links hidden md:flex items-center gap-6 text-[11px] font-heading uppercase tracking-wider font-semibold">
-                    <button onclick="switchView('dashboard')" class="text-white hover:text-[#00E5CC] transition-colors">Dashboard</button>
-                    <button onclick="switchView('workspace')" class="text-textMuted hover:text-white transition-colors">Workspace</button>
-                    <button onclick="switchView('chat')" class="text-textMuted hover:text-white transition-colors">Repository Chat</button>
-                </nav>
-            </div>
 
-            <div class="flex items-center gap-4 text-xs font-code">
-                <span id="nav-user-email" class="text-muted hidden md:inline">dev@codemind.ai</span>
-                <div class="w-8 h-8 rounded-full bg-[#1A1640] border border-accent flex items-center justify-center text-[#00E5CC] font-bold">D</div>
-                <button onclick="handleLogout()" class="text-muted hover:text-red-400 transition-colors uppercase font-heading tracking-wider font-semibold">Logout</button>
+                <!-- Center: Navigation links -->
+                <nav class="nav-links-center desktop-nav-items">
+                    <button onclick="switchView('dashboard')" class="nav-item-link">Home</button>
+                    <button onclick="scrollToFeatures()" class="nav-item-link">Features</button>
+                    <button onclick="switchView('workspace')" class="nav-item-link">AI Review</button>
+                    <button onclick="switchView('chat')" class="nav-item-link">Repository Chat</button>
+                    <button onclick="window.open('https://github.com/aryansirangi10/codemind-ai', '_blank')" class="nav-item-link">GitHub</button>
+                    <button onclick="showToast('Pricing details coming soon in the Enterprise release.')" class="nav-item-link">Pricing</button>
+                    <button onclick="showToast('Developer console APIs are available in beta.')" class="nav-item-link">Developers</button>
+                    <button onclick="showToast('Loading API Documentation...')" class="nav-item-link">Documentation</button>
+                </nav>
+
+                <!-- Right: Controls -->
+                <div class="controls-right-side">
+                    <!-- Search Input (Desktop) -->
+                    <div class="search-container-glass">
+                        <i data-lucide="search" class="search-icon-inside"></i>
+                        <input type="text" readonly onclick="toggleCmdPalette(true)" class="search-input-glass" placeholder="Search repositories...">
+                    </div>
+
+                    <!-- Search Icon (Mobile/Tablet) -->
+                    <button onclick="toggleCmdPalette(true)" class="btn-premium-icon search-icon-btn-mobile">
+                        <i data-lucide="search"></i>
+                    </button>
+
+                    <!-- Notification Bell -->
+                    <button onclick="toggleNotificationPanel(event)" class="btn-premium-icon">
+                        <i data-lucide="bell" id="bell-icon"></i>
+                        <span class="badge-dot"></span>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="btn-premium-icon" title="Toggle Theme Preset">
+                        <i data-lucide="sun" id="theme-icon"></i>
+                    </button>
+
+                    <!-- GitHub Button -->
+                    <button onclick="window.open('https://github.com/aryansirangi10/codemind-ai', '_blank')" class="github-btn-glass desktop-nav-items">
+                        <i data-lucide="github"></i>
+                        <span>GitHub</span>
+                    </button>
+
+                    <!-- Workspace Dropdown -->
+                    <div class="relative">
+                        <button onclick="toggleWorkspaceDropdown(event)" class="github-btn-glass" style="max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                            <i data-lucide="folder"></i>
+                            <span id="nav-active-workspace-name">Workspaces</span>
+                            <i data-lucide="chevron-down" style="width:12px; height:12px; margin-left: 2px;"></i>
+                        </button>
+                        <!-- Workspace Menu Dropdown Panel -->
+                        <div id="workspace-dropdown-panel" class="dropdown-panel" style="width: 240px;">
+                            <div class="dropdown-header">
+                                <span class="dropdown-user-name">Select Workspace</span>
+                            </div>
+                            <div id="workspace-dropdown-list" class="flex flex-col gap-1">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Profile Avatar with dropdown -->
+                    <div class="relative">
+                        <div class="avatar-gradient-border" onclick="toggleProfileDropdown(event)">
+                            <div class="avatar-circle" id="nav-avatar-initial">D</div>
+                        </div>
+                        
+                        <!-- Profile Dropdown Panel -->
+                        <div id="profile-dropdown-panel" class="dropdown-panel">
+                            <div class="dropdown-header">
+                                <span class="dropdown-user-name" id="dropdown-user-name">Developer</span>
+                                <span class="dropdown-user-email" id="dropdown-user-email">dev@codemind.ai</span>
+                                <span class="developer-badge">Lead Auditor</span>
+                            </div>
+                            <button onclick="switchView('dashboard'); toggleProfileDropdown(event);" class="dropdown-item">
+                                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                                <span>Dashboard</span>
+                            </button>
+                            <button onclick="openSettingsModal(); toggleProfileDropdown(event);" class="dropdown-item">
+                                <i data-lucide="settings" class="w-4 h-4"></i>
+                                <span>Config Settings</span>
+                            </button>
+                            <button onclick="openNewProjectModal(); toggleProfileDropdown(event);" class="dropdown-item">
+                                <i data-lucide="folder-plus" class="w-4 h-4"></i>
+                                <span>Create Workspace</span>
+                            </button>
+                            <button onclick="handleLogout(); toggleProfileDropdown(event);" class="dropdown-item danger-item">
+                                <i data-lucide="log-out" class="w-4 h-4 text-red-500"></i>
+                                <span class="text-red-500">Logout</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hamburger Menu Button (Mobile / Tablet) -->
+                    <button id="hamburger-menu-btn" onclick="toggleMobileDrawerFullscreen(true)" class="hamburger-btn-premium tablet-mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
             </div>
         </header>
 
@@ -1682,7 +2552,7 @@
                 this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.radius = Math.random() * 4 + 4; // 4-8px radius
-                this.color = Math.random() > 0.5 ? "#00B4D8" : "#00F5D4";
+                this.color = Math.random() > 0.5 ? "#FF3B30" : "#FF6B6B";
             }
 
             update() {
@@ -1898,7 +2768,21 @@
                 });
 
                 api.setToken(data.access_token, data.user);
-                document.getElementById("nav-user-email").textContent = data.user.email;
+                
+                // Update new premium navbar profile elements
+                const userEmailEl = document.getElementById("dropdown-user-email");
+                if (userEmailEl) userEmailEl.textContent = data.user.email;
+                
+                const userNameEl = document.getElementById("dropdown-user-name");
+                if (userNameEl) userNameEl.textContent = data.user.email.split('@')[0];
+                
+                const userDrawerEmailEl = document.getElementById("mobile-drawer-user-email");
+                if (userDrawerEmailEl) userDrawerEmailEl.textContent = data.user.email;
+                
+                const initial = data.user.email.charAt(0).toUpperCase();
+                const avatarEl = document.getElementById("nav-avatar-initial");
+                if (avatarEl) avatarEl.textContent = initial;
+
                 switchView("dashboard");
             } catch (err) {
                 alert("Login failed: " + err.message);
@@ -1933,6 +2817,10 @@
             try {
                 const projects = await api.request("/projects/");
                 const reviews = await api.request("/reviews/");
+
+                // Save projects globally and update workspace dropdown list
+                window.projectsList = projects;
+                populateWorkspaceDropdown(projects);
 
                 // Set numbers and trigger counts animations
                 animateCountUp("dash-stat-projects", projects.length);
@@ -2068,12 +2956,21 @@
             } else {
                 activeReview = api.mockReviews.find(r => r.project_id === projectId) || api.mockReviews[0];
             }
+            if (activeProject) {
+                const label = document.getElementById("nav-active-workspace-name");
+                if (label) label.textContent = activeProject.name;
+            }
             switchView("workspace");
         }
 
         async function loadWorkspaceData() {
             if (!activeProject) activeProject = api.mockProjects[0];
             if (!activeReview) activeReview = api.mockReviews[0];
+
+            if (activeProject) {
+                const label = document.getElementById("nav-active-workspace-name");
+                if (label) label.textContent = activeProject.name;
+            }
 
             // Render score progress ring (D: SCORE RING)
             const score = activeReview.overall_score;
@@ -2553,6 +3450,304 @@
             if (key) localStorage.setItem("gemini_key", key);
             closeSettingsModal();
             alert("API context variables saved.");
+        }
+
+        // --- NEW PREMIUM NAVBAR INTERACTION LOGIC ---
+
+        // State & Active Themes
+        let currentThemePreset = "sunset"; // "sunset" (red) or "cyber" (indigo/teal)
+
+        // Toast Notification System
+        function showToast(message) {
+            const container = document.getElementById("toast-container");
+            if (!container) return;
+
+            const card = document.createElement("div");
+            card.className = "toast-card";
+            card.innerHTML = `
+                <i data-lucide="info" class="w-5 h-5 text-[#FF3B30]"></i>
+                <span class="text-xs text-white font-medium font-heading">${message}</span>
+            `;
+            container.appendChild(card);
+            lucide.createIcons();
+
+            // Auto dismiss after 3 seconds
+            setTimeout(() => {
+                card.classList.add("toast-closing");
+                card.addEventListener("animationend", () => {
+                    card.remove();
+                });
+            }, 3000);
+        }
+
+        // Toggle dropdown panels (Profile, Workspace Menu, Notifications)
+        function toggleProfileDropdown(e) {
+            if (e) e.stopPropagation();
+            const isOpen = document.getElementById("profile-dropdown-panel").classList.contains("open");
+            closeAllDropdowns();
+            const panel = document.getElementById("profile-dropdown-panel");
+            if (panel && !isOpen) panel.classList.add("open");
+        }
+
+        function toggleWorkspaceDropdown(e) {
+            if (e) e.stopPropagation();
+            const isOpen = document.getElementById("workspace-dropdown-panel").classList.contains("open");
+            closeAllDropdowns();
+            const panel = document.getElementById("workspace-dropdown-panel");
+            if (panel && !isOpen) panel.classList.add("open");
+        }
+
+        function toggleNotificationPanel(e) {
+            if (e) e.stopPropagation();
+            const isOpen = document.getElementById("notification-dropdown-panel").classList.contains("open");
+            closeAllDropdowns();
+            const panel = document.getElementById("notification-dropdown-panel");
+            if (panel && !isOpen) panel.classList.add("open");
+        }
+
+        function closeAllDropdowns() {
+            const dropdowns = document.querySelectorAll(".dropdown-panel");
+            dropdowns.forEach(d => d.classList.remove("open"));
+        }
+
+        // Dismiss dropdowns on clicking outside
+        document.addEventListener("click", () => {
+            closeAllDropdowns();
+        });
+
+        // Populate Workspace selector menu dropdown
+        function populateWorkspaceDropdown(projects) {
+            const list = document.getElementById("workspace-dropdown-list");
+            if (!list) return;
+            list.innerHTML = "";
+
+            projects.forEach(p => {
+                const btn = document.createElement("button");
+                btn.className = "dropdown-item";
+                btn.innerHTML = `
+                    <i data-lucide="folder-git" class="w-4 h-4 text-muted"></i>
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${p.name}</span>
+                `;
+                btn.onclick = () => {
+                    selectWorkspaceProject(p.id);
+                    closeAllDropdowns();
+                };
+                list.appendChild(btn);
+            });
+            lucide.createIcons();
+        }
+
+        // Theme Toggle Presets (Sunset Matte Red <-> Cyber Midnight)
+        function toggleTheme() {
+            const root = document.documentElement;
+            const themeIcon = document.getElementById("theme-icon");
+
+            if (currentThemePreset === "sunset") {
+                // Switch to Cyber Midnight (Purple/Teal)
+                root.style.setProperty("--bg", "#05050C");
+                root.style.setProperty("--panel", "#0E0D1B");
+                root.style.setProperty("--border", "rgba(108, 71, 255, 0.2)");
+                root.style.setProperty("--accent", "#6C47FF");
+                root.style.setProperty("--accent2", "#00E5CC");
+                root.style.setProperty("--accent-glow", "rgba(108, 71, 255, 0.35)");
+                
+                themeIcon.setAttribute("data-lucide", "moon");
+                currentThemePreset = "cyber";
+                showToast("Theme switched to Cyber Midnight Preset.");
+            } else {
+                // Switch back to Sunset Matte Red (Default)
+                root.style.setProperty("--bg", "#080808");
+                root.style.setProperty("--panel", "#121212");
+                root.style.setProperty("--border", "rgba(255, 255, 255, 0.08)");
+                root.style.setProperty("--accent", "#FF3B30");
+                root.style.setProperty("--accent2", "#FF6B6B");
+                root.style.setProperty("--accent-glow", "rgba(255, 59, 48, 0.15)");
+
+                themeIcon.setAttribute("data-lucide", "sun");
+                currentThemePreset = "sunset";
+                showToast("Theme switched to Sunset Matte Red Preset.");
+            }
+            lucide.createIcons();
+        }
+
+        // Command Palette Cmd+K Modal Logic
+        let cmdPaletteOpen = false;
+        let cmdPaletteSelectedIndex = 0;
+        let cmdPaletteItems = [];
+
+        function toggleCmdPalette(isOpen) {
+            const overlay = document.getElementById("cmd-palette");
+            const input = document.getElementById("cmd-palette-input");
+            
+            if (isOpen) {
+                overlay.classList.add("open");
+                input.value = "";
+                input.focus();
+                cmdPaletteOpen = true;
+                cmdPaletteSelectedIndex = 0;
+                filterCmdPalette();
+            } else {
+                overlay.classList.remove("open");
+                cmdPaletteOpen = false;
+            }
+        }
+
+        function closeCmdPaletteOnOutsideClick(e) {
+            if (e.target.id === "cmd-palette") {
+                toggleCmdPalette(false);
+            }
+        }
+
+        // List of all commands in palette
+        const defaultCommands = [
+            { label: "Switch to Home (Dashboard)", action: "view", param: "dashboard", icon: "layout-dashboard", shortcut: "G D" },
+            { label: "Switch to AI Review (Workspace)", action: "view", param: "workspace", icon: "code-2", shortcut: "G W" },
+            { label: "Switch to Repository Chat", action: "view", param: "chat", icon: "message-square-text", shortcut: "G C" },
+            { label: "Toggle Theme Preset", action: "theme", param: null, icon: "sun", shortcut: "T T" },
+            { label: "Create New Workspace", action: "modal", param: "project", icon: "folder-plus", shortcut: "C W" },
+            { label: "Open Config Settings", action: "modal", param: "settings", icon: "settings", shortcut: "S S" },
+            { label: "Logout from Session", action: "logout", param: null, icon: "log-out", shortcut: "L O" }
+        ];
+
+        function filterCmdPalette() {
+            const query = document.getElementById("cmd-palette-input").value.toLowerCase();
+            const resultsContainer = document.getElementById("cmd-palette-results");
+            resultsContainer.innerHTML = "";
+
+            cmdPaletteItems = [];
+
+            // 1. Add matching system commands
+            defaultCommands.forEach(cmd => {
+                if (cmd.label.toLowerCase().includes(query)) {
+                    cmdPaletteItems.push(cmd);
+                }
+            });
+
+            // 2. Add matching workspaces
+            if (window.projectsList) {
+                window.projectsList.forEach(p => {
+                    const label = `Open Workspace: ${p.name}`;
+                    if (label.toLowerCase().includes(query)) {
+                        cmdPaletteItems.push({
+                            label: label,
+                            action: "workspace",
+                            param: p.id,
+                            icon: "folder",
+                            shortcut: `W ${p.id}`
+                        });
+                    }
+                });
+            }
+
+            // Render matching items
+            cmdPaletteItems.forEach((item, index) => {
+                const div = document.createElement("div");
+                div.className = `cmd-palette-item ${index === cmdPaletteSelectedIndex ? 'selected' : ''}`;
+                div.innerHTML = `
+                    <div class="cmd-palette-item-left">
+                        <i data-lucide="${item.icon}"></i>
+                        <span>${item.label}</span>
+                    </div>
+                    <kbd class="cmd-palette-shortcut">${item.shortcut}</kbd>
+                `;
+                div.onclick = () => {
+                    executeCmdPaletteItem(item);
+                    toggleCmdPalette(false);
+                };
+                resultsContainer.appendChild(div);
+            });
+
+            lucide.createIcons();
+        }
+
+        function executeCmdPaletteItem(item) {
+            if (item.action === "view") {
+                switchView(item.param);
+            } else if (item.action === "theme") {
+                toggleTheme();
+            } else if (item.action === "modal") {
+                if (item.param === "project") openNewProjectModal();
+                if (item.param === "settings") openSettingsModal();
+            } else if (item.action === "workspace") {
+                selectWorkspaceProject(item.param);
+            } else if (item.action === "logout") {
+                handleLogout();
+            }
+        }
+
+        // Handle keys inside Cmd+K
+        window.addEventListener("keydown", (e) => {
+            // Check for Cmd+K or Ctrl+K
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                toggleCmdPalette(!cmdPaletteOpen);
+            }
+
+            if (!cmdPaletteOpen) return;
+
+            if (e.key === "Escape") {
+                e.preventDefault();
+                toggleCmdPalette(false);
+            } else if (e.key === "ArrowDown") {
+                e.preventDefault();
+                cmdPaletteSelectedIndex = (cmdPaletteSelectedIndex + 1) % cmdPaletteItems.length;
+                filterCmdPalette();
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                cmdPaletteSelectedIndex = (cmdPaletteSelectedIndex - 1 + cmdPaletteItems.length) % cmdPaletteItems.length;
+                filterCmdPalette();
+            } else if (e.key === "Enter") {
+                e.preventDefault();
+                if (cmdPaletteItems[cmdPaletteSelectedIndex]) {
+                    executeCmdPaletteItem(cmdPaletteItems[cmdPaletteSelectedIndex]);
+                    toggleCmdPalette(false);
+                }
+            }
+        });
+
+        // Full Screen Mobile Drawer
+        function toggleMobileDrawerFullscreen(isOpen) {
+            const drawer = document.getElementById("mobile-drawer-fs");
+            const btn = document.getElementById("hamburger-menu-btn");
+            if (isOpen) {
+                drawer.classList.add("open");
+                btn.classList.add("open");
+            } else {
+                drawer.classList.remove("open");
+                btn.classList.remove("open");
+            }
+        }
+
+        // Map mobile drawer link clicks
+        function handleMobileLink(viewName) {
+            toggleMobileDrawerFullscreen(false);
+            if (viewName === "dashboard" || viewName === "workspace" || viewName === "chat") {
+                switchView(viewName);
+            } else if (viewName === "features") {
+                scrollToFeatures();
+            } else if (viewName === "pricing") {
+                showToast("Pricing details coming soon in the Enterprise release.");
+            } else if (viewName === "developers") {
+                showToast("Developer console APIs are available in beta.");
+            } else if (viewName === "documentation") {
+                showToast("Loading API Documentation...");
+            }
+        }
+
+        // Features smooth scroll helper
+        function scrollToFeatures() {
+            switchView("dashboard");
+            setTimeout(() => {
+                const stats = document.querySelector(".stats-grid");
+                if (stats) {
+                    stats.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            }, 300);
+        }
+
+        // Overwrite legacy toggleMobileDrawer to prevent errors in other scripts
+        function toggleMobileDrawer(isOpen) {
+            toggleMobileDrawerFullscreen(isOpen);
         }
     </script>
 </body>
