@@ -3,30 +3,35 @@
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@500;600;700&display=swap');
 
 :root {
-    /* Color Palette */
-    --bg: #050505;
-    --panel: #0E0E11;
-    --surface: #151518;
+    /* Multi-Layered Surface Palette */
+    --bg: #111315;          /* App Background Base */
+    --sidebar: #17191E;     /* Navigation Sidebar Surface */
+    --surface: #181A1F;     /* Main Workspace Container Surface */
+    --panel: #20242B;       /* Glass Cards & Content Panels */
+    --card: #20242B;        /* Cards Surface */
+    --dialog: #272C35;      /* Elevated Modals & Floating Tooltips */
+    --hover: #313844;       /* Interactive Hover & Focus State */
     --border: rgba(255, 255, 255, 0.08);
-    --border-glow: rgba(255, 59, 48, 0.2);
+    --border-glow: rgba(255, 90, 79, 0.25);
     
-    /* Semantic Colors */
-    --primary: #FF3B30;     /* Matte Red */
-    --secondary: #FF6B6B;   /* Light Red */
-    --accent: #7C5CFF;      /* AI Accent (Purple/Indigo) */
-    --info: #4DA3FF;        /* Info Blue */
-    --success: #22C55E;     /* Green */
-    --warning: #F59E0B;     /* Orange */
-    --danger: #FF3B30;
+    /* Brand & Semantic Colors */
+    --primary: #FF5A4F;     /* Apple Matte Coral-Red */
+    --secondary: #FF7B72;   /* Light Coral */
+    --accent: #7C5CFF;      /* AI Accent Purple */
+    --info: #4DA3FF;        /* Information Blue */
+    --success: #22C55E;     /* Emerald Green */
+    --warning: #F59E0B;     /* Amber Warning */
+    --danger: #FF5A4F;
     
-    /* Text Colors */
-    --text: #FFFFFF;
-    --muted: #A8A8A8;
+    /* Readable Typography Colors */
+    --text: #F4F4F5;        /* Primary High-Contrast Text */
+    --text-secondary: #B8BDC7; /* Body Copy & Subtitles */
+    --muted: #7C8594;       /* Captions & Hints */
     
     /* Spacing & Radii */
     --radius-sm: 6px;
     --radius-md: 10px;
-    --radius-lg: 18px;      /* 18px radius for panel cards */
+    --radius-lg: 18px;      /* 18px Panel Radius */
     --radius-xl: 24px;
     --radius-full: 9999px;
     
