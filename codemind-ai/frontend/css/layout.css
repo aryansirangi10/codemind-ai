@@ -16,6 +16,7 @@ html, body {
     transition: opacity var(--transition-normal), transform var(--transition-normal);
     width: 100%;
     height: 100%;
+    overflow-y: auto;
 }
 
 .view-section.active {
