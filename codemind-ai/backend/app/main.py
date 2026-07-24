@@ -4,10 +4,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.api.router import api_router
 from app.database.session import Base, engine, SessionLocal
-from app.models.user import User
-from app.models.project import Project
-from app.models.repository import Repository
-from app.models.review import Review, ReviewResult
+from app.domain.models.user import User
+from app.domain.models.organization import Organization, OrganizationMember
+from app.domain.models.project import Project
+from app.domain.models.repository import Repository
+from app.domain.models.review import Review, ReviewResult
+from app.domain.models.audit_log import AuditLog
+from app.domain.models.finding import Finding
 from app.core.security import get_password_hash
 
 # Setup logging

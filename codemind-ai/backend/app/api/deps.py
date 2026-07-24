@@ -37,3 +37,8 @@ def get_current_user(
     if not user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
     return user
+
+def get_container_dep(db: Session = Depends(get_db)):
+    from app.core.container import Container, get_container
+    return get_container(db)
+

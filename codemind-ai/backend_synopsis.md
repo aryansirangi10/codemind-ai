@@ -1,111 +1,74 @@
-# CodeMind AI — Backend Synopsis & Architecture
-## High-Performance FastAPI Code Analysis Engine
+# CodeMind AI — Clean Architecture Backend Synopsis
+## Domain-Driven FastAPI Engine with Plugin Analyzers & Use Cases
 
-The **CodeMind AI Backend** is a high-performance Python ASGI application built with **FastAPI**, **SQLAlchemy**, and **SQLite**. It handles user authentication, workspace/project management, semantic search indexing, AST static code parsing, and multi-agent AI reasoning pipelines.
+The **CodeMind AI Backend** is a production-quality, clean-architecture Python ASGI engine built with **FastAPI**, **SQLAlchemy**, and **SQLite**. It enforces strict separation of concerns across **Domain**, **Application**, **Infrastructure**, and **API** layers.
 
 ---
 
-## 1. System Folder Structure
-
-The backend follows a modular domain-driven architecture:
+## 1. System Folder Architecture
 
 ```
 backend/
-├── requirements.txt         # Core dependencies (FastAPI, SQLAlchemy, PyJWT, bcrypt, Uvicorn)
-├── Dockerfile               # Deployment container wrapper
+├── run.sh                   # Unified macOS developer launcher
 ├── codemind.db              # SQLite Local Database
 └── app/
-    ├── main.py              # Application entrypoint & database auto-seeder
+    ├── main.py              # Application entrypoint & auto-seeding
     │
-    ├── core/                # Configuration and Cryptography
-    │   ├── config.py        # Pydantic BaseSettings environment loader
-    │   └── security.py      # Password bcrypt hashing & JWT token operations
+    ├── core/                # Core Framework & Dependency Injection
+    │   ├── settings.py      # BaseSettings environment manager
+    │   ├── container.py     # Dependency Injection Container
+    │   └── security.py      # Passlib bcrypt & JWT cryptography
     │
-    ├── database/            # Database Connection
-    │   └── session.py       # SQLAlchemy engine & DB session generator dependency
+    ├── domain/              # Core Business Rules (Framework Agnostic)
+    │   ├── models/          # SQLAlchemy Entities (User, Organization, Project, Finding, AuditLog)
+    │   ├── policies/        # Authorization policies (Organization, Project, Review)
+    │   ├── repositories/    # Data Persistence Interfaces (UserRepository, OrgRepository, ProjectRepository, ReviewRepository, AuditRepository)
+    │   ├── analyzers/       # Plugin-Based Code Analyzers
+    │   │   ├── base.py      # BaseAnalyzer abstract interface & FindingResult schema
+    │   │   ├── registry.py  # Auto-discovery registry runner
+    │   │   ├── ast/         # Python AST Static Linter (CWE-89, CWE-798, CWE-397)
+    │   │   └── security/    # OWASP vulnerability scanner
+    │   └── ai/              # AI Agents & Specialist Models
+    │       ├── agents/      # BaseAgent, SecurityAgent, SupervisorAgent
+    │       └── rag/         # Local TF-IDF semantic vector indexer
     │
-    ├── models/              # SQLAlchemy Database Entity Schemas
-    │   ├── __init__.py
-    │   ├── user.py          # Users login credentials & profile
-    │   ├── project.py       # Workspace repositories metadata
-    │   ├── review.py        # Logged audit records & raw findings JSON
-    │   └── chat.py          # Assistant conversation logs
+    ├── application/         # Orchestration & Business Actions
+    │   ├── use_cases/       # Single-responsibility business actions (CreateReview, ImportRepository)
+    │   └── workflows/       # Multi-step pipeline execution (ReviewPipeline)
     │
-    ├── schemas/             # Pydantic API Data Validation Models
-    │   ├── user.py          # User input/response payload validations
-    │   ├── project.py       # Project creation & card payloads
-    │   └── review.py        # Code reviews schema structures
+    ├── infrastructure/      # External Frameworks & Systems
+    │   ├── observability/   # Structured logging, metrics, tracing, health checks
+    │   ├── database/        # SessionMaker & SQLite engine setup
+    │   ├── workers/         # Background job runners (ReviewWorker)
+    │   ├── reports/         # Compliance exporters (Markdown, HTML, JSON)
+    │   └── notifications/   # In-app toast & delivery handlers
     │
-    ├── services/            # Custom Linter & Code Audits
-    │   ├── static_analysis.py  # Local AST parser (CWE-89, CWE-397, CWE-798 scanner)
-    │   └── report_generator.py # Formats audit findings into HTML & Markdown
-    │
-    ├── ai/                  # AI Models & Context Retrieval
-    │   ├── rag_engine.py    # TF-IDF local text vector indexer
-    │   ├── agents.py        # Specialist reviewer agents definitions
-    │   ├── agent_supervisor.py # Supervisor deduplicator & scorer
-    │   └── prompts.py       # Prompt templates for RAG
-    │
-    └── api/                 # API Routing Layer
-        ├── router.py        # Centralized router combining modules
-        ├── deps.py          # Dependency injection helpers (JWT user validators)
-        └── v1/              # Endpoint modules
-            ├── auth.py      # JWT registration, login & session check
-            ├── projects.py  # Repository import, listing, and deletion
-            ├── reviews.py   # Code analysis trigger and Monaco Diff queries
-            ├── chat.py      # Context-aware semantic chat assistant
-            └── health.py    # System checks & database diagnostics
+    └── api/                 # API Presentation Layer
+        ├── router.py        # Centralized APIRouter aggregator
+        ├── deps.py          # Dependency injection helpers (get_container_dep, get_current_user)
+        └── v1/
+            ├── routes/      # Domain-specific endpoint routes (auth, organizations, projects, reviews, chat, audit-logs, health)
+            └── controllers/ # Request controllers delegating to Use Cases
 ```
 
 ---
 
-## 2. Core Modules Description
+## 2. Layer Responsibilities
 
-### 1. Database & ORM Layer (`app/database/`, `app/models/`)
-* **SQLite Session Manager**: Uses SQLAlchemy `sessionmaker` to establish transaction contexts. The dependency function `get_db()` yields local database connections per request, cleaning up transactions automatically.
-* **Declarative Mapping Models**:
-  * `User`: Holds identity attributes (`email`, `hashed_password`, `name`, `role`).
-  * `Project`: Represents active repositories with language, star metrics, and overall health tags.
-  * `Review`: Stores the findings log generated by the review pipelines, preserving comparative code diffs and vulnerability indexes inside a SQLite JSON column.
-
-### 2. Security & Token Auth (`app/core/`, `app/api/deps.py`)
-* **Password Hashing**: Uses `passlib` with `bcrypt` algorithms to encrypt user passwords. Plaintext is never stored.
-* **Token Authentication**: Implements OAuth2 Bearer standards. The function `get_current_user` in `deps.py` intercept requests, extracts the JWT token, decodes it using the HMAC-SHA256 signature key, validates expiration, and returns the calling database User record.
-
-### 3. AST Static Linter Parser (`app/services/static_analysis.py`)
-* **Python AST Compiler**: Uses Python's native `ast` parser to construct Abstract Syntax Trees of submitted code payloads.
-* **CWE Taxonomy Engine**:
-  * **CWE-89 (SQL Injection)**: Searches for string concatenation (e.g., `.execute("SELECT... " + param)`) inside database query methods.
-  * **CWE-798 (Hardcoded Secret Tokens)**: Scans assignment nodes for credential patterns (e.g., keys, tokens, secrets) declared in plaintext.
-  * **CWE-397 (Bare Exception Catching)**: Flag standard `try: ... except:` blocks that fail to specify exception subclasses.
-
-### 4. Semantic RAG & Multi-Agent Reviews (`app/ai/`)
-* **TF-IDF Semantic Engine**: A custom local RAG module that splits imported file lines into token sequences, computes TF-IDF scores, matches developer inquiries, and injects context lines into prompt templates.
-* **Specialist Agent Consensus**:
-  * **Security Agent**: Focuses on OWASP-related vulnerabilities.
-  * **Performance Agent**: Audits loop constraints, CPU bottlenecks, and memory leaks.
-  * **QA/Testing Agent**: Checks unit coverage, edge case handlers, and boundary checks.
-  * **Architecture Agent**: Evaluates complexity score, coupling patterns, and PEP8 conformance.
-  * **Supervisor Agent**: Collates results, filters redundant logs, compiles suggestions, and calculates the overall repository score.
+1. **Domain Layer (`app/domain/`)**: Holds pure entities (`Organization`, `AuditLog`, `Finding`), data persistence repositories (`user_repository.py`), policy checks, AI agents, and plugin analyzers. It operates independently of HTTP frameworks.
+2. **Application Layer (`app/application/`)**: Houses single-action Use Cases (`CreateReview.py`) and multi-step pipeline workflows (`review_pipeline.py`).
+3. **Infrastructure Layer (`app/infrastructure/`)**: Contains SQLite database connectors, structured observability (`logging.py`, `metrics.py`, `health.py`), and exporter formats.
+4. **API Layer (`app/api/`)**: Thin FastAPI route controllers that validate request parameters, resolve container dependencies via `deps.get_container_dep`, and delegate business logic to Use Cases.
 
 ---
 
-## 3. Core API Endpoints Specification
+## 3. Registered Domain Routes
 
-| Endpoint | Method | Auth | Description | Input Payload (Pydantic) |
-| :--- | :--- | :--- | :--- | :--- |
-| `/api/v1/auth/register` | `POST` | Public | Creates a new user profile. | `UserCreate` (email, name, password) |
-| `/api/v1/auth/login` | `POST` | Public | Form validation, returns JWT token. | OAuth2 Password Request |
-| `/api/v1/projects/` | `GET` | Private | Lists all active repositories. | None |
-| `/api/v1/projects/` | `POST` | Private | Imports a repository workspace. | `ProjectCreate` (name, language) |
-| `/api/v1/reviews/` | `POST` | Private | Triggers AST & agent audit on code. | `ReviewRequest` (project_id, code) |
-| `/api/v1/reviews/{id}` | `GET` | Private | Retrieves detailed findings JSON. | None |
-| `/api/v1/chat/` | `POST` | Private | Context-aware chat with RAG. | `ChatRequest` (project_id, message) |
-
----
-
-## 4. Bootstrapping & DB Initialization
-
-Upon launching Uvicorn, FastAPI listens for startup lifecycles (`main.py`):
-1. **Schema Check**: If tables are missing in `codemind.db`, they are automatically compiled.
-2. **Auto-Seeder**: If no users are registered, the seeder registers `dev@codemind.ai` with seeded mock repositories and pre-audited code findings logs, preparing the workspace for immediate inspection.
+| Path | Method | Layer Delegate | Description |
+| :--- | :--- | :--- | :--- |
+| `/api/v1/auth/login` | `POST` | `UserRepository` | Validates credentials and returns Bearer JWT |
+| `/api/v1/organizations/` | `GET` | `OrganizationRepository` | Lists multi-tenant workspaces |
+| `/api/v1/projects/` | `GET` | `ProjectRepository` | Lists workspace projects |
+| `/api/v1/reviews/` | `POST` | `ReviewPipeline` | Runs AST, AI agents, and persists findings |
+| `/api/v1/audit-logs/` | `GET` | `AuditRepository` | Retrieves immutable audit event trail |
+| `/api/v1/health/health` | `GET` | `HealthCheck` | Runs system diagnostics |
