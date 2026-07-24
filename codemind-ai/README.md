@@ -92,7 +92,20 @@ codemind-ai/
 
 ## ⚙️ Setup & Installation
 
-### Local Execution (FastAPI + Python web server)
+### Unified macOS Launcher (Recommended)
+You can boot both the FastAPI backend and frontend servers with a single command:
+```bash
+# 1. Clone the project and navigate to the directory
+cd codemind-ai/
+
+# 2. Run the unified launcher script
+./run.sh
+```
+*The script checks ports, starts both servers, opens http://localhost:3000 in your browser, and stops cleanly on Ctrl+C.*
+
+---
+
+### Step-by-Step Manual Execution
 
 #### 1. Start the Backend:
 ```bash
@@ -117,7 +130,7 @@ python3 -m http.server 3000
 ```
 Open **`http://localhost:3000`** in your browser.
 
-#### 3. Log In:
+#### 3. Default Credentials:
 * **Email:** `dev@codemind.ai`
 * **Password:** `password123`
 
