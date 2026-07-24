@@ -12,7 +12,7 @@ export const landingView = {
             <nav class="top-breadcrumb-bar border-b border-white/5" style="height: 80px; position: sticky; top: 0; z-index: 100;">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-md bg-gradient-to-tr from-[#FF3B30] to-[#FF6B6B] flex items-center justify-center font-bold font-heading text-white">C</div>
-                    <span class="text-xl font-heading font-bold select-none text-white">CodeMind <span class="text-gradient-primary">AI</span></span>
+                    <span class="text-xl font-logo select-none text-white">CodeMind <span class="text-gradient-primary">AI</span></span>
                 </div>
                 <div class="flex items-center gap-8 text-sm font-medium text-muted">
                     <a href="#features" class="hover:text-white transition-colors">Features</a>
